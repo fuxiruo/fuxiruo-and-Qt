@@ -34,3 +34,5 @@
 /mapFromGlobal_mapToGlobal/.qmake.stash
 /mapFromGlobal_mapToGlobal/Makefile*
 /mapFromGlobal_mapToGlobal/release
+build-*
+/*/*.user
