@@ -30,9 +30,8 @@
 *.exe
 *.out
 *.app
-/mapFromGlobal_mapToGlobal/*.user
-/mapFromGlobal_mapToGlobal/.qmake.stash
-/mapFromGlobal_mapToGlobal/Makefile*
-/mapFromGlobal_mapToGlobal/release
+/*/.qmake.stash
+/*/Makefile*
+/*/release
 build-*
 /*/*.user
