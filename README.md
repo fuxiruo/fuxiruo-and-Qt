@@ -9,4 +9,4 @@ Qt小知识小技巧分享
 | 3 | SimpleAnalogClock | 简易时钟 |
 
 ### 效果图
-![SimpleAnalogClock](https://github.com/fuxiruo/fuxiruo-and-Qt/blob/master/snap/SimpleAnalogClock.gif)
+![SimpleAnalogClock](snap/SimpleAnalogClock.gif)
