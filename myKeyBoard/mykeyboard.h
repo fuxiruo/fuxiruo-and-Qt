@@ -29,6 +29,7 @@ protected:
 
 private Q_SLOTS:
     void OnStartInstallEventFilter();
+    void OnShow();
     void OnWidgetDestroy(QObject *obj);
 
     void OnKeyClick();

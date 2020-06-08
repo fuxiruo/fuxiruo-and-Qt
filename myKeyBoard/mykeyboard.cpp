@@ -96,6 +96,20 @@ void myKeyBoard::OnStartInstallEventFilter()
     qApp->installEventFilter(&mAppEventFilter);
 }
 
+void myKeyBoard::OnShow()
+{
+    QWidget *widget = dynamic_cast<QWidget *>(this->sender());
+    if(!widget){
+        return;
+    }
+
+    mFocusWidget = widget;
+
+    if(GetSwitch()){
+        Show();
+    }
+}
+
 void myKeyBoard::OnWidgetDestroy(QObject *obj)
 {
     mIntallWidgetList.removeOne((QWidget *)obj);
@@ -239,9 +253,9 @@ void myKeyBoard::SetWidgetEventFilter(QWidget *widget)
     if (widget->inherits("QLineEdit")){
         widget->installEventFilter(this);
     }else if (widget->inherits("QTextEdit")){
-        widget->installEventFilter(this);
+        connect(widget, SIGNAL(selectionChanged()), this, SLOT(OnShow()));
     }else if (widget->inherits("QPlainTextEdit")){
-        widget->installEventFilter(this);
+        connect(widget, SIGNAL(selectionChanged()), this, SLOT(OnShow()));
     }else if(widget->inherits("QAbstractSpinBox")){
         QLineEdit *uiInputLineEdit = widget->findChild<QLineEdit *>();
         if(uiInputLineEdit){
