@@ -9,8 +9,10 @@ Qt小知识小技巧分享
 | 3 | SimpleAnalogClock | 简易时钟 |
 | 4 | InputHistoryList | 用QListWidget为QSpinBox、QLineEdit添加输入历史选择列表 |
 | 5 | myKeyBoard | 软键盘 |
+| 6 | myScrollText | 滚动字幕 |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
 ![InputHistoryList](snap/InputHistoryList.gif "输入历史")
 ![myKeyBoard](snap/myKeyBoard.gif "软键盘")
+![myScrollText](snap/myScrollText.gif "滚动字幕")
