@@ -50,7 +50,8 @@ void InputHistoryList::ReShow()
     }
 
     this->setCurrentRow(0);
-    this->showNormal();
+    this->show();
+    this->raise();
 }
 
 void InputHistoryList::OnItemClicked(QListWidgetItem *item)
