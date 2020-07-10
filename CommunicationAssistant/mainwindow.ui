@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>809</width>
+    <height>474</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Communication Assistant</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="TcpServerWindow" name="tab_tcp_server">
+       <attribute name="title">
+        <string>TCP Server</string>
+       </attribute>
+      </widget>
+      <widget class="TcpClientWindow" name="tab_tcp_client">
+       <attribute name="title">
+        <string>TCP Client</string>
+       </attribute>
+      </widget>
+      <widget class="UdpServerWindow" name="tab_udp_server">
+       <attribute name="title">
+        <string>UDP Server</string>
+       </attribute>
+      </widget>
+      <widget class="UdpClientWindow" name="tab_udp_client">
+       <attribute name="title">
+        <string>UDP Client</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>809</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuhelp">
+    <property name="title">
+     <string>help</string>
+    </property>
+    <addaction name="actionabout"/>
+   </widget>
+   <addaction name="menuhelp"/>
+  </widget>
+  <action name="actionabout">
+   <property name="text">
+    <string>about</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>TcpServerWindow</class>
+   <extends>QWidget</extends>
+   <header>tcpserverwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TcpClientWindow</class>
+   <extends>QWidget</extends>
+   <header>tcpclientwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>UdpServerWindow</class>
+   <extends>QWidget</extends>
+   <header>udpserverwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>UdpClientWindow</class>
+   <extends>QWidget</extends>
+   <header>udpclientwindow.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
