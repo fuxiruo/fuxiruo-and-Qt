@@ -11,6 +11,7 @@ Qt小知识小技巧分享
 | 5 | myKeyBoard | 软键盘 |
 | 6 | myScrollText | 滚动字幕 |
 | 7 | CommunicationAssistant | 通信调试助手 |
+| 8 | ntpClient | ntp客户端 |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
