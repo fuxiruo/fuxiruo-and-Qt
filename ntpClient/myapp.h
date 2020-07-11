@@ -2,8 +2,9 @@
 #define MYAPP_H
 
 #include <QCoreApplication>
-#include "./qntp/NtpClient.h"
 #include <QTimer>
+#include <QDateTime>
+#include "./qntp/NtpClient.h"
 
 class MyApp : public QCoreApplication{
     Q_OBJECT
@@ -21,6 +22,8 @@ private:
     QTimer mTimer;
     bool mbWaitRet;
     int mFailCount;
+
+    void SetSysDateTime(QDateTime dateTime);
 };
 
 #endif // MYAPP_H

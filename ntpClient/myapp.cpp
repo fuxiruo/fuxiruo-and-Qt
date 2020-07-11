@@ -1,5 +1,4 @@
 #include "myapp.h"
-#include <QDateTime>
 #include <windows.h>
 #include "cmylogger.h"
 #include "./qntp/NtpReply.h"
@@ -8,6 +7,18 @@ MyApp::MyApp(int &argc, char **argv):QCoreApplication(argc, argv)
 {
     mbWaitRet = false;
     mFailCount = 0;
+
+    QDate qBuildDate = QLocale( QLocale::English ).toDate( QString( __DATE__ ).replace( "  ", " " ), "MMM dd yyyy");
+    QDate qNowDate = QDate::currentDate();
+
+    if(qBuildDate > qNowDate){
+       INF("now date %s, build date %s!(时间异常)",
+               qNowDate.toString("MMM dd yyyy").toUtf8().constData(),
+               qBuildDate.toString("MMM dd yyyy").toUtf8().constData());
+       INF("自动修正时间...");
+       QDateTime dateTime = QDateTime(qBuildDate);
+       SetSysDateTime(dateTime);
+    }
 
     ntpClient.init("cn.pool.ntp.org");
     connect(&ntpClient, SIGNAL(replyReceived(QHostAddress,quint16,NtpReply)), this, SLOT(OnNtpReplyReceived(QHostAddress,quint16,NtpReply)));
@@ -27,15 +38,7 @@ void MyApp::OnNtpReplyReceived(const QHostAddress &/*address*/, quint16 /*port*/
         QDateTime syncDateTime = QDateTime::currentDateTime().addMSecs(reply.localClockOffset());
         INF("sync time:%s", qUtf8Printable(syncDateTime.toString("yyyy-MM-dd HH:mm:ss")));
 
-        SYSTEMTIME st;
-        GetLocalTime(&st);
-        st.wYear = syncDateTime.date().year();
-        st.wMonth = syncDateTime.date().month();
-        st.wDay = syncDateTime.date().day();
-        st.wHour = syncDateTime.time().hour();
-        st.wMinute = syncDateTime.time().minute();
-        st.wSecond = syncDateTime.time().second();
-        SetLocalTime(&st);
+        SetSysDateTime(syncDateTime);
     }
 }
 
@@ -56,4 +59,17 @@ void MyApp::OnTimeout()
         mbWaitRet = true;
         ntpClient.sendRequest();
     }
+}
+
+void MyApp::SetSysDateTime(QDateTime dateTime)
+{
+    SYSTEMTIME st;
+    GetLocalTime(&st);
+    st.wYear = dateTime.date().year();
+    st.wMonth = dateTime.date().month();
+    st.wDay = dateTime.date().day();
+    st.wHour = dateTime.time().hour();
+    st.wMinute = dateTime.time().minute();
+    st.wSecond = dateTime.time().second();
+    SetLocalTime(&st);
 }
