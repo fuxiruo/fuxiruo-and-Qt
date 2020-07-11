@@ -3,8 +3,14 @@
 #include "cmylogger.h"
 #include "./qntp/NtpReply.h"
 
+CMyLogger logger;
+
 MyApp::MyApp(int &argc, char **argv):QCoreApplication(argc, argv)
 {
+    logger.SetLogFile(QCoreApplication::applicationDirPath() + "/ntpClient.log");
+    INF("+++++++++++++++++++++++++++++++++");
+    INF("build on %s %s",__DATE__, __TIME__);
+
     mbWaitRet = false;
     mFailCount = 0;
 
