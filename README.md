@@ -17,7 +17,13 @@ Qt小知识小技巧分享
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
+
 ![InputHistoryList](snap/InputHistoryList.gif "输入历史")
+
 ![myKeyBoard](snap/myKeyBoard.gif "软键盘")
+
 ![myScrollText](snap/myScrollText.gif "滚动字幕")
+
+![CommunicationAssistant](snap/CommunicationAssistant.gif "通信调试助手")
+
 ![qmlClock](snap/qmlClock.gif "qml简易时钟")
