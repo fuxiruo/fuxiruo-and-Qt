@@ -40,6 +40,11 @@
         <string>UDP Client</string>
        </attribute>
       </widget>
+      <widget class="SerialWindow" name="tab_serial">
+       <attribute name="title">
+        <string>Serial</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -91,6 +96,12 @@
    <class>UdpClientWindow</class>
    <extends>QWidget</extends>
    <header>udpclientwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SerialWindow</class>
+   <extends>QWidget</extends>
+   <header>serialwindow.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
