@@ -30,9 +30,10 @@
 *.exe
 *.out
 *.app
-/*/.qmake.stash
-/*/Makefile*
+*qmake.stash
+Makefile*
 /*/release
 build-*
-/*/*.user
+*.user
 /*/ui_*.h
+/*/*/release
