@@ -33,3 +33,15 @@ void MainWindow::on_pushButton_test_clicked()
     qDebug()<<roleAuthority.AuthorityIndex;
     qDebug()<<roleAuthority.Authority;
 }
+
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+    if(0 == index){
+        qApp->removeTranslator(&translator);
+    }else{
+        //加载翻译文件，将Authority00翻译为设置的具体权限
+        if(translator.load("myauthority_cn")){
+            qApp->installTranslator(&translator);
+        }
+    }
+}

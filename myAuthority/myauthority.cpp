@@ -87,11 +87,13 @@ void MyAuthority::InitUI()
     }
 
     //加载翻译文件，将Authority00翻译为设置的具体权限
-    QTranslator *translator = new QTranslator(this);
-    translator->load("myauthority_cn");
-    qApp->installTranslator(translator);
+//    QTranslator *translator = new QTranslator(this);
+//    translator->load("myauthority_cn");
+//    qApp->installTranslator(translator);
     //如果要在changeEvent中再调用retranslateUi，则translator不能为局部变量
     //也就是说，translator的生命周期还没结束时，其包含的翻译信息才有用
+
+    retranslateUi();
 }
 
 void MyAuthority::retranslateUi()

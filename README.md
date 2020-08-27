@@ -30,3 +30,5 @@ Qt小知识小技巧分享
 ![qmlClock](snap/qmlClock.gif "qml简易时钟")
 
 ![myAuthority](snap/myAuthority.gif "权限配置控件")
+
+![myAuthority2](snap/myAuthority2.gif "权限配置控件多语言示例")

@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="MyAuthority" name="widget" native="true"/>
+    </item>
     <item row="3" column="0">
      <widget class="QPushButton" name="pushButton_test">
       <property name="text">
@@ -29,14 +32,25 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="MyAuthority" name="widget" native="true"/>
-    </item>
     <item row="2" column="0">
      <widget class="QPushButton" name="pushButton_load">
       <property name="text">
        <string>Load</string>
       </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QComboBox" name="comboBox">
+      <item>
+       <property name="text">
+        <string>English</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>中文</string>
+       </property>
+      </item>
      </widget>
     </item>
    </layout>

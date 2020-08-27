@@ -35,5 +35,5 @@ Makefile*
 /*/release
 build-*
 *.user
-/*/ui_*.h
+ui_*.h
 /*/*/release
