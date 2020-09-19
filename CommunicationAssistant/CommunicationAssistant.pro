@@ -38,7 +38,8 @@ SOURCES += \
     tcpclientwindow.cpp \
     serialwindow.cpp \
     udpserverwindow.cpp \
-    udpclientwindow.cpp
+    udpclientwindow.cpp \
+    userdefined.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -51,7 +52,8 @@ HEADERS += \
     tcpclientwindow.h \
     serialwindow.h \
     udpserverwindow.h \
-    udpclientwindow.h
+    udpclientwindow.h \
+    userdefined.h
 
 FORMS += \
         mainwindow.ui \
@@ -61,7 +63,8 @@ FORMS += \
     tcpclientwindow.ui \
     serialwindow.ui \
     udpserverwindow.ui \
-    udpclientwindow.ui
+    udpclientwindow.ui \
+    userdefined.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

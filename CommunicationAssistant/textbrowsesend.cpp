@@ -28,6 +28,13 @@ void TextBrowseSend::AddHistory(const QStringList &texts)
     mHistoryModel.setStringList(mHistoryList);
 }
 
+void TextBrowseSend::OnUserdefinedSend(QString sMsg)
+{
+    AddHistory(sMsg);
+
+    Send(sMsg);
+}
+
 void TextBrowseSend::on_pushButton_clear_clicked()
 {
     ui->textEdit->clear();
@@ -41,15 +48,7 @@ void TextBrowseSend::on_pushButton_send_clicked()
 
     AddHistory(ui->textEdit->toPlainText());
 
-    QByteArray qbData;
-    if(ui->radioButton_string->isChecked()){
-        QTextCodec *pGBKEncoder=QTextCodec::codecForName(mCodecForName.toLocal8Bit());
-        qbData = pGBKEncoder->fromUnicode(ui->textEdit->toPlainText());
-    }else{
-        qbData = QByteArray::fromHex(ui->textEdit->toPlainText().toLocal8Bit());
-    }
-
-    emit SigSend(qbData);
+    Send(ui->textEdit->toPlainText());
 }
 
 void TextBrowseSend::on_comboBox_encoding_currentIndexChanged(const QString &arg1)
@@ -60,6 +59,8 @@ void TextBrowseSend::on_comboBox_encoding_currentIndexChanged(const QString &arg
 void TextBrowseSend::Init()
 {
     ui->listView_history->setModel(&mHistoryModel);
+
+    connect(ui->userdefined, SIGNAL(SigSend(QString)), this, SLOT(OnUserdefinedSend(QString)));
 }
 
 void TextBrowseSend::AddHistory(const QString &sText)
@@ -75,6 +76,19 @@ void TextBrowseSend::AddHistory(const QString &sText)
     mHistoryModel.setStringList(mHistoryList);
 
     ui->listView_history->scrollToBottom();
+}
+
+void TextBrowseSend::Send(QString sMsg)
+{
+    QByteArray qbData;
+    if(ui->radioButton_string->isChecked()){
+        QTextCodec *pGBKEncoder=QTextCodec::codecForName(mCodecForName.toLocal8Bit());
+        qbData = pGBKEncoder->fromUnicode(sMsg);
+    }else{
+        qbData = QByteArray::fromHex(sMsg.toLocal8Bit());
+    }
+
+    emit SigSend(qbData);
 }
 
 void TextBrowseSend::on_listView_history_doubleClicked(const QModelIndex &index)

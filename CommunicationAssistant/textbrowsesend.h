@@ -23,6 +23,8 @@ signals:
     void SigSend(const QByteArray &qbData);
 
 private slots:
+    void OnUserdefinedSend(QString sMsg);
+
     void on_pushButton_clear_clicked();
 
     void on_pushButton_send_clicked();
@@ -41,6 +43,7 @@ private:
 
     void Init();
     void AddHistory(const QString &sText);
+    void Send(QString sMsg);
 };
 
 #endif // TEXTBROWSESEND_H
