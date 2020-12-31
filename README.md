@@ -15,6 +15,7 @@ Qt小知识小技巧分享
 | 9 | testStickyFrame | 适用于解析字符流简单通信协议的帧分割，例如协议格式为CMD:DATA1:DATA2，开头为命令号，接一个:分割符号，然后就是数据。还包含了QtTest基本用法
 | 10 | qmlClock | qml中用Canvas做的一个简易时钟 |
 | 11 | myAuthority | 简易权限配置控件，用QTranslator实现国际化，QSettings实现ini数据存储和读取 |
+| 12 | MessageImage | 图片轮播 |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
@@ -32,3 +33,5 @@ Qt小知识小技巧分享
 ![myAuthority](snap/myAuthority.gif "权限配置控件")
 
 ![myAuthority2](snap/myAuthority2.gif "权限配置控件多语言示例")
+
+![MessageImage](snap/MessageImage.gif "图片轮播")
