@@ -16,6 +16,7 @@ Qt小知识小技巧分享
 | 10 | qmlClock | qml中用Canvas做的一个简易时钟 |
 | 11 | myAuthority | 简易权限配置控件，用QTranslator实现国际化，QSettings实现ini数据存储和读取 |
 | 12 | MessageImage | 图片轮播 |
+| 13 | SimpleSelect | QRadioButton封装，动态布局，按钮styleSheet |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
@@ -35,3 +36,5 @@ Qt小知识小技巧分享
 ![myAuthority2](snap/myAuthority2.gif "权限配置控件多语言示例")
 
 ![MessageImage](snap/MessageImage.gif "图片轮播")
+
+![SimpleSelect](snap/SimpleSelect.gif "动态布局")
