@@ -44,6 +44,7 @@ void ERRWidget::SetErrInfo(QString sErrInfo)
 {
     msErrInfo = sErrInfo;
     ui->label_errInfo->setText(QString("【%1】 %2").arg(mErrCode).arg(msErrInfo));
+    this->adjustSize();
 }
 
 QString ERRWidget::GetErrInfo()

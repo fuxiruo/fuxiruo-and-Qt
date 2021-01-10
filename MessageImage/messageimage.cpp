@@ -303,7 +303,6 @@ void MessageImage::UpdateModuleErr(quint8 moduleIdx, RecErrorDefine err)
     if(preErrCode != err.Idx || err.Message != errWidget->GetErrInfo()){
         errWidget->SetErrInfo(err.Message);
     }
-    errWidget->adjustSize();
 
     if(mButtonGroup.button(moduleIdx)){
         QPushButton *button = dynamic_cast<QPushButton *>(mButtonGroup.button(moduleIdx));
