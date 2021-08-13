@@ -17,6 +17,7 @@ Qt小知识小技巧分享
 | 11 | myAuthority | 简易权限配置控件，用QTranslator实现国际化，QSettings实现ini数据存储和读取 |
 | 12 | MessageImage | 图片轮播 |
 | 13 | SimpleSelect | QRadioButton封装，动态布局，按钮styleSheet |
+| 14 | testQDataStream | QDataStream读写二进制文件,MD5校验 |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
