@@ -23,12 +23,11 @@ void MainWindow::on_pushButton_export_clicked()
     if(!fileName.isEmpty()){
         Parameter p;
         QVector<Parameter> qp;
-        p.str = "one";
-        p.uNum = 1;
-        qp.append(p);
-        p.str = "two";
-        p.uNum = 2;
-        qp.append(p);
+        for(int i=0; i<1024; i++){
+            p.str = QString::number(i).rightJustified(4, '0');
+            p.uNum = i;
+            qp.append(p);
+        }
 
         ImportExportParameter::Export(fileName, qp);
     }
