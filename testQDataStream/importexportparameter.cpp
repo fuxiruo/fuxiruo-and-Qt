@@ -132,8 +132,8 @@ ImportExportParameter::ErrCode ImportExportParameter::Import(const QString &sFil
     }
     QByteArray qbRead;
     QCryptographicHash hash(QCryptographicHash::Md5);
-    int nPrevRead = 1024;
-    int nTailSize = 4+32;//最后36个字节是4字节大小、MD5字符串，上面计算MD5时其实也把结束符+计算了，所以这里也要把最后的结束符+算进来
+    int nPrevRead = 100*1024;
+    int nTailSize = 4+32;//最后36个字节是4字节大小、MD5字符串
     while(file.bytesAvailable() > nTailSize){
         qbRead.clear();
         if(file.bytesAvailable() > nPrevRead+nTailSize){
