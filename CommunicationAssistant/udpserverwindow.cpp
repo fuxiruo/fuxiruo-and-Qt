@@ -69,6 +69,7 @@ void UdpServerWindow::on_pushButton_server_clicked()
     if(QAbstractSocket::BoundState == mUdpSocket.state()){
         mUdpSocket.close();
         ui->pushButton_server->setChecked(false);
+        mClientListModel.setStringList(QStringList());
     }else{
         mUdpSocket.bind(QHostAddress(ui->comboBox_server_ip->currentText()), ui->spinBox_server_port->text().toInt());
     }

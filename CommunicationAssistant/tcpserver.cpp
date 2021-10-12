@@ -30,6 +30,8 @@ bool TcpServer::StopListen()
 
     close();
 
+    mMapClient.clear();
+
     return true;
 }
 

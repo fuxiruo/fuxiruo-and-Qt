@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>809</width>
-    <height>474</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,8 +54,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>809</width>
-     <height>26</height>
+     <width>1280</width>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuhelp">
@@ -64,11 +64,23 @@
     </property>
     <addaction name="actionabout"/>
    </widget>
+   <widget class="QMenu" name="menuadd_TCP_Client">
+    <property name="title">
+     <string>add</string>
+    </property>
+    <addaction name="actionTCP_Client"/>
+   </widget>
+   <addaction name="menuadd_TCP_Client"/>
    <addaction name="menuhelp"/>
   </widget>
   <action name="actionabout">
    <property name="text">
     <string>about</string>
+   </property>
+  </action>
+  <action name="actionTCP_Client">
+   <property name="text">
+    <string>TCP Client</string>
    </property>
   </action>
  </widget>

@@ -96,6 +96,8 @@ void TcpServerWindow::on_pushButton_server_clicked()
     if(mTcpServer.isListening()){
         mTcpServer.StopListen();
         ui->pushButton_server->setChecked(false);
+        mClientMap.clear();
+        mClientListModel.setStringList(QStringList(mClientMap.keys()));
     }else{
         QString sErrMsg;
         bool bRet = mTcpServer.StartListen(sErrMsg,
