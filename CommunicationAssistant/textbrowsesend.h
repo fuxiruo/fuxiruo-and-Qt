@@ -17,12 +17,23 @@ public:
     ~TextBrowseSend();
 
     QStringList GetHistory();
-    void AddHistory(const QStringList &texts);
+    void SetHistory(const QStringList &texts);
+
+    QString GetAutoHead();
+    void SetAutoHead(const QString &sText);
+    QString GetAutoTail();
+    void SetAutoTail(const QString &sText);
+
+protected:
+    // Event handlers
+    bool event(QEvent *event) Q_DECL_OVERRIDE;
 
 signals:
     void SigSend(const QByteArray &qbData);
 
 private slots:
+    void OnInitAfterUI();
+
     void OnUserdefinedSend(QString sMsg);
 
     void on_pushButton_clear_clicked();
@@ -38,10 +49,12 @@ private:
 
     QString mCodecForName="UTF-8";
     int mnMaxHistory=10;
-    QStringList mHistoryList;
     QStringListModel mHistoryModel;
 
     void Init();
+    QString GetGroup();
+    void LoadSendHistroy();
+    void SaveSendHistory();
     void AddHistory(const QString &sText);
     void Send(QString sMsg);
 };

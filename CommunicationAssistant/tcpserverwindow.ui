@@ -114,6 +114,13 @@
         </layout>
        </widget>
       </item>
+      <item>
+       <widget class="QLabel" name="label_count">
+        <property name="text">
+         <string>TX:0	RX:0</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -163,6 +170,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="group" stdset="0">
+          <string>TcpServer</string>
          </property>
         </widget>
        </item>

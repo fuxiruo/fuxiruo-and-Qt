@@ -16,13 +16,15 @@ public:
     explicit UserDefined(QWidget *parent = nullptr);
     ~UserDefined();
 
-protected:
-    void showEvent(QShowEvent *event);
+    void SetGroup(const QString &group);
+    QString GetGroup();
 
 Q_SIGNALS:
     void SigSend(QString);
 
 private Q_SLOTS:
+    void OnInitAfterUI();
+
     void OnBtnClick();
     void OnTextEdited(const QString &);
     void OnLabelLinkActivated(const QString &link);
@@ -33,6 +35,7 @@ private:
     enum{E_COL_OF_INDEX=0, E_COL_OF_LINEEDIT, E_COL_OF_SEND_BTN}E_COL_INDEX;
     QSet<int> mChangeColList;
     int mRowCount;
+    QString msGroup;
 
     void Add();
     void Init();

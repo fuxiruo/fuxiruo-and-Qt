@@ -33,6 +33,7 @@ private:
     TcpServer mTcpServer;
     QMap<QString, int> mClientMap;
     QStringListModel mClientListModel;
+    quint32 mnSend,mnRecv;
 
     void InitIP();
     void Init();
@@ -41,6 +42,8 @@ private:
     void SaveSetting();
     void SaveSendHistory();
     void LoadSendHistroy();
+
+    void UpdateSendRecvCount(qint32 mnAddSend=0, qint32 mnAddRecv=0);
 };
 
 #endif // TCPSERVER_H

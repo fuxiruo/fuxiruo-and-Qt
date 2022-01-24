@@ -1,6 +1,6 @@
 #include "userdefined.h"
 #include "ui_userdefined.h"
-
+#include <QTimer>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
@@ -17,6 +17,9 @@ UserDefined::UserDefined(QWidget *parent) :
     ui->setupUi(this);
 
     Init();
+    SetGroup("");
+
+    QTimer::singleShot(0, this, SLOT(OnInitAfterUI()));
 }
 
 UserDefined::~UserDefined()
@@ -26,11 +29,19 @@ UserDefined::~UserDefined()
     delete ui;
 }
 
-void UserDefined::showEvent(QShowEvent *event)
+void UserDefined::SetGroup(const QString &group)
+{
+    msGroup = group;
+}
+
+QString UserDefined::GetGroup()
+{
+    return msGroup;
+}
+
+void UserDefined::OnInitAfterUI()
 {
     Load();
-
-    QWidget::showEvent(event);
 }
 
 void UserDefined::OnBtnClick()
@@ -102,6 +113,7 @@ void UserDefined::Save()
     QSettings setting(CommonFunc::GetAppPath()+"/userdefined.ini", QSettings::IniFormat);
     setting.setIniCodec("utf-8");
 
+    setting.beginGroup(GetGroup());
     QSet<int>::const_iterator i = mChangeColList.constBegin();
     while (i != mChangeColList.constEnd()) {
         int row = *i;
@@ -115,6 +127,7 @@ void UserDefined::Save()
 
         ++i;
     }
+    setting.endGroup();
 }
 
 void UserDefined::Load()
@@ -122,6 +135,7 @@ void UserDefined::Load()
     QSettings setting(CommonFunc::GetAppPath()+"/userdefined.ini", QSettings::IniFormat);
     setting.setIniCodec("utf-8");
 
+    setting.beginGroup(GetGroup());
     for(int i=0; i<mRowCount; i++){
         QString text = setting.value(QString("%1/lineEdit%2").arg(this->objectName()).arg(i)).toString();
         if(!text.isEmpty()){
@@ -135,4 +149,5 @@ void UserDefined::Load()
             pPushBtn->setText(text);
         }
     }
+    setting.endGroup();
 }

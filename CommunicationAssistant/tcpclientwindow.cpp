@@ -15,7 +15,7 @@ TcpClientWindow::TcpClientWindow(QWidget *parent) :
 
 TcpClientWindow::~TcpClientWindow()
 {
-    SaveSendHistory();
+    SaveSetting();
 
     delete ui;
 }
@@ -61,6 +61,7 @@ void TcpClientWindow::OnDisconnected()
 
 void TcpClientWindow::OnConnected()
 {
+    qDebug()<<"OnConnected:"<<mTcpSocket.localPort()<<mTcpSocket.peerPort();
     ui->pushButton_connect->setEnabled(true);
     ui->pushButton_connect->setChecked(true);
     ui->pushButton_connect->setText(tr("disconnect"));
@@ -102,6 +103,8 @@ void TcpClientWindow::LoadSetting()
     QSettings setting(CommonFunc::GetAppPath()+"/config.ini", QSettings::IniFormat);
     ui->spinBox_port->setValue(setting.value("/TcpClient/Port", 50000).toInt());
     ui->lineEdit_ip->setText(setting.value("/TcpClient/IP", "127.0.0.1").toString());
+
+    ui->textEdit_auto_reply->setText(setting.value("/TcpClient/AutoReply", "").toString());
 }
 
 void TcpClientWindow::SaveSetting()
@@ -110,34 +113,13 @@ void TcpClientWindow::SaveSetting()
 
     setting.setValue("/TcpClient/IP", ui->lineEdit_ip->text());
     setting.setValue("/TcpClient/Port", ui->spinBox_port->text());
-}
-
-void TcpClientWindow::SaveSendHistory()
-{
-    QStringList history = ui->textBrowse_send->GetHistory();
-
-    QSettings setting(CommonFunc::GetAppPath()+"/config.ini", QSettings::IniFormat);
-    setting.setValue("/TcpClient/History", history.join("#$"));
 
     setting.setValue("/TcpClient/AutoReply", ui->textEdit_auto_reply->toPlainText());
-}
-
-void TcpClientWindow::LoadSendHistroy()
-{
-    QSettings setting(CommonFunc::GetAppPath()+"/config.ini", QSettings::IniFormat);
-    QString sHistory = setting.value("/TcpClient/History", "").toString();
-    if(sHistory != ""){
-        QStringList list = sHistory.split("#$");
-        ui->textBrowse_send->AddHistory(list);
-    }
-
-    ui->textEdit_auto_reply->setText(setting.value("/TcpClient/AutoReply", "").toString());
 }
 
 void TcpClientWindow::Init()
 {
     LoadSetting();
-    LoadSendHistroy();
 
     connect(&mTcpSocket, SIGNAL(connected()), this, SLOT(OnConnected()));
     connect(&mTcpSocket, SIGNAL(disconnected()), this, SLOT(OnDisconnected()));

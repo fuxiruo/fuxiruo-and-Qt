@@ -16,7 +16,7 @@ TcpServerWindow::TcpServerWindow(QWidget *parent) :
 
 TcpServerWindow::~TcpServerWindow()
 {
-    SaveSendHistory();
+    SaveSetting();
     delete ui;
 }
 
@@ -49,7 +49,6 @@ void TcpServerWindow::Init()
     ui->listView_clients->setModel(&mClientListModel);
 
     LoadSetting();
-    LoadSendHistroy();
 
     connect(&mTcpServer, SIGNAL(SigServerClientConnect(int,QString,int)), this, SLOT(OnSigServerClientConnect(int,QString,int)));
     connect(&mTcpServer, SIGNAL(SigServerClientDisConnect(int,QString,int)), this, SLOT(OnSigServerClientDisConnect(int,QString,int)));
@@ -63,6 +62,9 @@ void TcpServerWindow::LoadSetting()
     QSettings setting(CommonFunc::GetAppPath()+"/config.ini", QSettings::IniFormat);
     ui->spinBox_server_port->setValue(setting.value("/TcpServer/Port", 50000).toInt());
     ui->comboBox_server_ip->setCurrentText(setting.value("/TcpServer/IP", "127.0.0.1").toString());
+
+    ui->textBrowse_send->SetAutoHead(setting.value("/TcpServer/AutoHead", "").toString());
+    ui->textBrowse_send->SetAutoTail(setting.value("/TcpServer/AutoTail", "").toString());
 }
 
 void TcpServerWindow::SaveSetting()
@@ -71,24 +73,16 @@ void TcpServerWindow::SaveSetting()
 
     setting.setValue("/TcpServer/IP", ui->comboBox_server_ip->currentText());
     setting.setValue("/TcpServer/Port", ui->spinBox_server_port->text());
+
+    setting.setValue("/TcpServer/AutoHead", ui->textBrowse_send->GetAutoHead());
+    setting.setValue("/TcpServer/AutoTail", ui->textBrowse_send->GetAutoTail());
 }
 
-void TcpServerWindow::SaveSendHistory()
+void TcpServerWindow::UpdateSendRecvCount(qint32 mnAddSend, qint32 mnAddRecv)
 {
-    QStringList history = ui->textBrowse_send->GetHistory();
-
-    QSettings setting(CommonFunc::GetAppPath()+"/config.ini", QSettings::IniFormat);
-    setting.setValue("/TcpServer/History", history.join("#$"));
-}
-
-void TcpServerWindow::LoadSendHistroy()
-{
-    QSettings setting(CommonFunc::GetAppPath()+"/config.ini", QSettings::IniFormat);
-    QString sHistory = setting.value("/TcpServer/History", "").toString();
-    if(sHistory != ""){
-        QStringList list = sHistory.split("#$");
-        ui->textBrowse_send->AddHistory(list);
-    }
+    mnSend += mnAddSend;
+    mnRecv += mnAddRecv;
+    ui->label_count->setText(QString("TX:%1\tRX:%2").arg(mnSend).arg(mnRecv));
 }
 
 void TcpServerWindow::on_pushButton_server_clicked()
@@ -99,6 +93,10 @@ void TcpServerWindow::on_pushButton_server_clicked()
         mClientMap.clear();
         mClientListModel.setStringList(QStringList(mClientMap.keys()));
     }else{
+        mnSend = 0;
+        mnRecv = 0;
+        UpdateSendRecvCount();
+
         QString sErrMsg;
         bool bRet = mTcpServer.StartListen(sErrMsg,
                                            ui->spinBox_server_port->text().toInt(),
@@ -125,6 +123,7 @@ void TcpServerWindow::on_pushButton_server_clicked()
 void TcpServerWindow::OnSigServerRecv(int /*clientID*/, QString IP, int Port, QByteArray data)
 {
     ui->textBrower_recv->Append(IP, Port, data);
+    UpdateSendRecvCount(0, data.size());
 }
 
 void TcpServerWindow::OnSigServerClientConnect(int clientID, QString IP, int Port)
@@ -150,6 +149,7 @@ void TcpServerWindow::OnSigSend(const QByteArray &qbData)
         int ret = mTcpServer.SendMsgToClient(clientID, qbData, sErrMsg);
         if(ret < 0){
             QMessageBox::warning(this, tr("send fail"), sErrMsg);
+            return;
         }
     }else{
         QMap<QString, int>::const_iterator i = mClientMap.constBegin();
@@ -158,4 +158,6 @@ void TcpServerWindow::OnSigSend(const QByteArray &qbData)
             ++i;
         }
     }
+
+    UpdateSendRecvCount(qbData.size(), 0);
 }

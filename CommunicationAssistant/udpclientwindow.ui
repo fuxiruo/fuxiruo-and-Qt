@@ -124,7 +124,11 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="TextBrowseSend" name="textBrowse_send" native="true"/>
+        <widget class="TextBrowseSend" name="textBrowse_send" native="true">
+         <property name="group" stdset="0">
+          <string>UdpClient</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

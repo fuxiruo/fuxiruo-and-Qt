@@ -42,9 +42,6 @@ private:
 
     void LoadSetting();
     void SaveSetting();
-    void SaveSendHistory();
-    void LoadSendHistroy();
-
     void Init();
 
     void AutoReply(QString sRecv);
