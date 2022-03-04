@@ -73,8 +73,8 @@ void TcpClientWindow::OnReadyRead()
 {
     if(mTcpSocket.bytesAvailable()){
         QByteArray data = mTcpSocket.readAll();
-        ui->textBrower_recv->Append(data);
-        AutoReply(data);
+        QString convText = ui->textBrower_recv->Append(data);
+        AutoReply(convText);
     }
 }
 
@@ -105,6 +105,9 @@ void TcpClientWindow::LoadSetting()
     ui->lineEdit_ip->setText(setting.value("/TcpClient/IP", "127.0.0.1").toString());
 
     ui->textEdit_auto_reply->setText(setting.value("/TcpClient/AutoReply", "").toString());
+
+    ui->textBrowse_send->SetAutoHead(setting.value("/TcpClient/AutoHead", "").toString());
+    ui->textBrowse_send->SetAutoTail(setting.value("/TcpClient/AutoTail", "").toString());
 }
 
 void TcpClientWindow::SaveSetting()
@@ -115,6 +118,9 @@ void TcpClientWindow::SaveSetting()
     setting.setValue("/TcpClient/Port", ui->spinBox_port->text());
 
     setting.setValue("/TcpClient/AutoReply", ui->textEdit_auto_reply->toPlainText());
+
+    setting.setValue("/TcpClient/AutoHead", ui->textBrowse_send->GetAutoHead());
+    setting.setValue("/TcpClient/AutoTail", ui->textBrowse_send->GetAutoTail());
 }
 
 void TcpClientWindow::Init()
@@ -141,7 +147,7 @@ void TcpClientWindow::AutoReply(QString sRecv)
                     sKey = sTemp;
                     break;
                 }else{
-                    QRegularExpression re(sTemp);
+                    QRegExp re(sTemp);
                     if(sRecv.contains(re)){
                         sKey = sTemp;
                     }
@@ -149,11 +155,11 @@ void TcpClientWindow::AutoReply(QString sRecv)
             }
 
             if(mAutoReplyMap.contains(sKey)){
-                OnSigSend(mAutoReplyMap.value(sKey).toUtf8());
+                ui->textBrowse_send->Send(mAutoReplyMap.value(sKey).toUtf8());
             }else if(mAutoReplyMap.contains("*")){
-                OnSigSend(mAutoReplyMap.value("*").toUtf8());
+                ui->textBrowse_send->Send(mAutoReplyMap.value("*").toUtf8());
             }else{
-                OnSigSend(ui->textEdit_auto_reply->toPlainText().toUtf8());
+                ui->textBrowse_send->Send(ui->textEdit_auto_reply->toPlainText().toUtf8());
             }
         }
     }

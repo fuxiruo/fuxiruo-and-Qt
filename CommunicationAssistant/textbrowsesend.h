@@ -24,6 +24,7 @@ public:
     QString GetAutoTail();
     void SetAutoTail(const QString &sText);
 
+    void Send(QString sMsg);
 protected:
     // Event handlers
     bool event(QEvent *event) Q_DECL_OVERRIDE;
@@ -56,7 +57,6 @@ private:
     void LoadSendHistroy();
     void SaveSendHistory();
     void AddHistory(const QString &sText);
-    void Send(QString sMsg);
 };
 
 #endif // TEXTBROWSESEND_H

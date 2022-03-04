@@ -15,14 +15,16 @@ TextBrowserHexOrString::~TextBrowserHexOrString()
     delete ui;
 }
 
-void TextBrowserHexOrString::Append(const QByteArray &data)
+QString TextBrowserHexOrString::Append(const QByteArray &data)
 {
     QString sNewText;
     if(ui->checkBox_timestamp->isChecked()){
         sNewText += QString("[%1]").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss.zzz"));
     }
-    sNewText += ConvText(data);
+    QString convText = ConvText(data);
+    sNewText += convText;
     ui->textEdit->append(sNewText);
+    return convText;
 }
 
 void TextBrowserHexOrString::Append(const QString &IP, int Port, const QByteArray &data)
