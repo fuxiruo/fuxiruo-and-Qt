@@ -18,6 +18,7 @@ Qt小知识小技巧分享
 | 12 | MessageImage | 图片轮播 |
 | 13 | SimpleSelect | QRadioButton封装，动态布局，按钮styleSheet |
 | 14 | testQDataStream | QDataStream读写二进制文件,MD5校验 |
+| 15 | snake | qml贪吃蛇 |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
