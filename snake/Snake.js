@@ -6,6 +6,7 @@ var foodsY = new Array(0);
 var bodys = new Array(0);
 var component;
 var moveDir = Qt.Key_Up;
+var preMoveDir = Qt.Key_Up;
 var gameOver = false;
 
 function getNewFoodXY(cellWidth, cellHeight){
@@ -107,6 +108,8 @@ function newGame(){
     play.score = 0;
     play.level = 1;
     gameOver = false
+    moveDir = Qt.Key_Up;
+    preMoveDir = moveDir;
 
     var temp;
     while(bodys.length > 0){
@@ -128,41 +131,59 @@ function newGame(){
 }
 
 function changeDir(dir){
+    preMoveDir = moveDir;
     moveDir = dir;
 }
 
-function move(dir){
-//    console.debug('move:'+dir)
-
+function move(){
     var head = bodys[0]
     var preX = head.x;
     var preY = head.y;
     var moveStep;
 
-    switch(dir){
-    case Qt.Key_Up:
-        moveStep = head.height+1;
-        head.y -= moveStep;
-    break;
+    var bAgain;
+    var x,y;
+    do{
+        bAgain = false;
+        x = head.x;
+        y = head.y;
 
-    case Qt.Key_Down:
-        moveStep = head.height+1;
-        head.y += moveStep;
-    break;
+        switch(moveDir){
+        case Qt.Key_Up:
+            moveStep = head.height+1;
+            y -= moveStep;
+        break;
 
-    case Qt.Key_Right:
-        moveStep = head.width+1;
-        head.x += moveStep;
-    break;
+        case Qt.Key_Down:
+            moveStep = head.height+1;
+            y += moveStep;
+        break;
 
-    case Qt.Key_Left:
-        moveStep = head.width+1;
-        head.x -= moveStep;
-    break;
-    default:
-        return;
-    }
+        case Qt.Key_Right:
+            moveStep = head.width+1;
+            x += moveStep;
+        break;
 
+        case Qt.Key_Left:
+            moveStep = head.width+1;
+            x -= moveStep;
+        break;
+        default:
+            return;
+        }
+
+        //头部移动后马上与下一点重叠，不允许移动
+        if(x>=bodys[1].x-head.width && x<=bodys[1].x+head.width){
+            if(y>=bodys[1].y-head.height && y<=bodys[1].y+head.height){
+                console.debug('cannot move this dir,continu pre dir')
+                moveDir = preMoveDir;
+                bAgain = true;
+            }
+        }
+    }while(bAgain);
+
+    head.x = x;
+    head.y = y;
     var tempX,tempY;
     for(var i=1; i<bodys.length; i++){
         tempX = bodys[i].x;
@@ -178,7 +199,7 @@ function move(dir){
 }
 
 function autoMove(){
-    move(moveDir)
+    move()
 }
 
 function checkGameOver(){
@@ -253,6 +274,7 @@ function checkDie(){
         if(head.x>=bodys[i].x-bodys[i].width && head.x<=bodys[i].x+bodys[i].width){
             if(head.y>=bodys[i].y-bodys[i].height && head.y<=bodys[i].y+bodys[i].height){
                 console.info('die for self hit!')
+                bodys[i].color = 'yellow';
                 gameOver = true;
                 return;
             }
@@ -261,7 +283,7 @@ function checkDie(){
 }
 
 function updateLevel(){
-    if(play.score % 2){
+    if(play.score % 2 == 0){
         play.level += 1;
     }
 
