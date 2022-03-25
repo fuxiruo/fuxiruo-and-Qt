@@ -27,7 +27,7 @@ QString TextBrowserHexOrString::Append(const QByteArray &data)
     return convText;
 }
 
-void TextBrowserHexOrString::Append(const QString &IP, int Port, const QByteArray &data)
+QString TextBrowserHexOrString::Append(const QString &IP, int Port, const QByteArray &data)
 {
     QString sNewText;
     if(ui->checkBox_timestamp->isChecked()){
@@ -35,8 +35,11 @@ void TextBrowserHexOrString::Append(const QString &IP, int Port, const QByteArra
                     .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss.zzz"))
                     .arg(IP).arg(Port);
     }
-    sNewText += ConvText(data);
+    QString convText = ConvText(data);
+    sNewText += convText;
     ui->textEdit->append(sNewText);
+
+    return convText;
 }
 
 void TextBrowserHexOrString::SetCodecForName(const QString &codecForName)

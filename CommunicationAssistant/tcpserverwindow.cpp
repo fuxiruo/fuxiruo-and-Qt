@@ -63,6 +63,8 @@ void TcpServerWindow::LoadSetting()
     ui->spinBox_server_port->setValue(setting.value("/TcpServer/Port", 50000).toInt());
     ui->comboBox_server_ip->setCurrentText(setting.value("/TcpServer/IP", "127.0.0.1").toString());
 
+    ui->textEdit_auto_reply->setText(setting.value("/TcpServer/AutoReply", "").toString());
+
     ui->textBrowse_send->SetAutoHead(setting.value("/TcpServer/AutoHead", "").toString());
     ui->textBrowse_send->SetAutoTail(setting.value("/TcpServer/AutoTail", "").toString());
 }
@@ -73,6 +75,8 @@ void TcpServerWindow::SaveSetting()
 
     setting.setValue("/TcpServer/IP", ui->comboBox_server_ip->currentText());
     setting.setValue("/TcpServer/Port", ui->spinBox_server_port->text());
+
+    setting.setValue("/TcpServer/AutoReply", ui->textEdit_auto_reply->toPlainText());
 
     setting.setValue("/TcpServer/AutoHead", ui->textBrowse_send->GetAutoHead());
     setting.setValue("/TcpServer/AutoTail", ui->textBrowse_send->GetAutoTail());
@@ -122,7 +126,8 @@ void TcpServerWindow::on_pushButton_server_clicked()
 
 void TcpServerWindow::OnSigServerRecv(int /*clientID*/, QString IP, int Port, QByteArray data)
 {
-    ui->textBrower_recv->Append(IP, Port, data);
+    QString convText = ui->textBrower_recv->Append(IP, Port, data);
+    AutoReply(convText);
     UpdateSendRecvCount(0, data.size());
 }
 
@@ -160,4 +165,47 @@ void TcpServerWindow::OnSigSend(const QByteArray &qbData)
     }
 
     UpdateSendRecvCount(qbData.size(), 0);
+}
+
+void TcpServerWindow::on_checkBox_auto_reply_toggled(bool checked)
+{
+    if(checked){
+        mAutoReplyMap.clear();
+        QStringList qsl = ui->textEdit_auto_reply->toPlainText().split("\n");
+        foreach (QString sLine, qsl) {
+            QStringList qslRS = sLine.split("->");
+            if(2 == qslRS.size()){
+                qDebug()<<"auto reply:"<<sLine;
+                mAutoReplyMap.insert(qslRS.at(0), qslRS.at(1));
+            }
+        }
+    }
+}
+
+void TcpServerWindow::AutoReply(QString sRecv)
+{
+    if(ui->checkBox_auto_reply->isChecked()){
+        if(!ui->textEdit_auto_reply->toPlainText().isEmpty()){
+            QString sKey = "";
+            foreach (QString sTemp, mAutoReplyMap.keys()) {
+                if(sRecv == sTemp){
+                    sKey = sTemp;
+                    break;
+                }else{
+                    QRegExp re(sTemp);
+                    if(sRecv.contains(re)){
+                        sKey = sTemp;
+                    }
+                }
+            }
+
+            if(mAutoReplyMap.contains(sKey)){
+                ui->textBrowse_send->Send(mAutoReplyMap.value(sKey).toUtf8());
+            }else if(mAutoReplyMap.contains("*")){
+                ui->textBrowse_send->Send(mAutoReplyMap.value("*").toUtf8());
+            }else{
+                ui->textBrowse_send->Send(ui->textEdit_auto_reply->toPlainText().toUtf8());
+            }
+        }
+    }
 }

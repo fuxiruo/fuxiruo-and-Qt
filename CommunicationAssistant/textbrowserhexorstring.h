@@ -16,7 +16,7 @@ public:
     ~TextBrowserHexOrString();
 
     QString Append(const QByteArray &data);
-    void Append(const QString &IP, int Port, const QByteArray &data);
+    QString Append(const QString &IP, int Port, const QByteArray &data);
     void SetCodecForName(const QString &codecForName);
 
 private slots:

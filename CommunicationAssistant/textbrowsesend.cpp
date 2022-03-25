@@ -145,6 +145,9 @@ void TextBrowseSend::AddHistory(const QString &sText)
             .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss.zzz"))
             .arg(sText);
 
+    if(mHistoryModel.rowCount() > mnMaxHistory){
+        mHistoryModel.removeRows(0, mnMaxHistory/2);
+    }
     mHistoryModel.insertRow(mHistoryModel.rowCount());
     mHistoryModel.setData(mHistoryModel.index(mHistoryModel.rowCount()-1), sNewText);
 

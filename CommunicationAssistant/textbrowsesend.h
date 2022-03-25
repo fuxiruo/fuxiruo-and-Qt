@@ -49,7 +49,7 @@ private:
     Ui::TextBrowseSend *ui;
 
     QString mCodecForName="UTF-8";
-    int mnMaxHistory=10;
+    int mnMaxHistory=100;
     QStringListModel mHistoryModel;
 
     void Init();

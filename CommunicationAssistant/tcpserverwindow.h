@@ -27,6 +27,8 @@ private slots:
 
     void OnSigSend(const QByteArray &qbData);
 
+    void on_checkBox_auto_reply_toggled(bool checked);
+
 private:
     Ui::TcpServerWindow *ui;
 
@@ -34,6 +36,7 @@ private:
     QMap<QString, int> mClientMap;
     QStringListModel mClientListModel;
     quint32 mnSend,mnRecv;
+    QMap<QString, QString> mAutoReplyMap;
 
     void InitIP();
     void Init();
@@ -44,6 +47,8 @@ private:
     void LoadSendHistroy();
 
     void UpdateSendRecvCount(qint32 mnAddSend=0, qint32 mnAddRecv=0);
+
+    void AutoReply(QString sRecv);
 };
 
 #endif // TCPSERVER_H

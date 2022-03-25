@@ -115,6 +115,28 @@
        </widget>
       </item>
       <item>
+       <widget class="QFrame" name="frame_auto_reply">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QCheckBox" name="checkBox_auto_reply">
+           <property name="text">
+            <string>自动回复</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="textEdit_auto_reply"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="label_count">
         <property name="text">
          <string>TX:0	RX:0</string>
