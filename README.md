@@ -40,3 +40,5 @@ Qt小知识小技巧分享
 ![MessageImage](snap/MessageImage.gif "图片轮播")
 
 ![SimpleSelect](snap/SimpleSelect.gif "动态布局")
+
+![snake](snap/snake.gif "贪吃蛇")
