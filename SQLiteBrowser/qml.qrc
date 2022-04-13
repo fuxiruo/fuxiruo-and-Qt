@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>utils/BaseIcon.qml</file>
+        <file>utils/Theme.qml</file>
+        <file>img/icon-tables.png</file>
+        <file>views/AppWindow.qml</file>
+        <file>views/Theme.qml</file>
+        <file>views/Label.qml</file>
+        <file>utils/AccentBottom.qml</file>
+        <file>utils/AccentRight.qml</file>
+        <file>utils/Blurtangle.qml</file>
+        <file>views/Header.qml</file>
+    </qresource>
+</RCC>

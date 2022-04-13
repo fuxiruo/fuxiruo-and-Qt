@@ -19,6 +19,7 @@ Qt小知识小技巧分享
 | 13 | SimpleSelect | QRadioButton封装，动态布局，按钮styleSheet |
 | 14 | testQDataStream | QDataStream读写二进制文件,MD5校验 |
 | 15 | snake | qml贪吃蛇 |
+| 16 | SQLiteBrowser | qml数据库浏览器(参考https://github.com/ndesai/sqlite-editor-qtqml) |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
@@ -42,3 +43,5 @@ Qt小知识小技巧分享
 ![SimpleSelect](snap/SimpleSelect.gif "动态布局")
 
 ![snake](snap/snake.gif "贪吃蛇")
+
+![SQLiteBrowser](snap/SQLiteBrowser.gif "SQLite数据库浏览器")
