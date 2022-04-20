@@ -41,3 +41,5 @@ build-*
 ui_*.h
 /*/*/release
 qrc_*.cpp
+*.Debug
+*.Release
