@@ -40,3 +40,4 @@ build-*
 *.user.*
 ui_*.h
 /*/*/release
+qrc_*.cpp
