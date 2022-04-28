@@ -22,6 +22,7 @@ Qt小知识小技巧分享
 | 16 | SQLiteBrowser | qml数据库浏览器(参考https://github.com/ndesai/sqlite-editor-qtqml) |
 | 17 | qmlPuzzle | qml拼图游戏 |
 | 18 | testQtPropertyBrowser | QtPropertyBrowser使用 |
+| 19 | testQGraphicsScene | QGraphicsScene使用 |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
