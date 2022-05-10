@@ -58,12 +58,14 @@ bool FormCircle::CheckIfSameCircle(qint32 centerX, qint32 centerY, qint32 radius
         qWarning()<<"startY != mHLineStartY"<<startY<<mHLineStartY;
         ui->spinBox_H_line_startY->setValue(startY);
         mHLineStartY = startY;
+        mHLineStartX = startX;
         //return false;
     }
     if(!bHLine && startX != mVLineStartX){
         qWarning()<<"startX != mVLineStartX"<<startX<<mVLineStartX;
         ui->spinBox_V_line_startX->setValue(startX);
         mVLineStartX = startX;
+        mVLineStartY = startY;
         //return false;
     }
     if(singleHeight != ui->spinBox_height->value()){
@@ -223,6 +225,7 @@ bool FormCircle::eventFilter(QObject *obj, QEvent *event)
 void FormCircle::on_pushButton_updateShow_clicked()
 {
     Reset();
+    int n =  QString::number(ui->spinBox_radius->value()).left(1).toInt();
     if(ui->spinBox_radius->value() < 10000){
         mBaseScale = 1;
     }else if(ui->spinBox_radius->value() < 100000){
@@ -235,6 +238,7 @@ void FormCircle::on_pushButton_updateShow_clicked()
         }
         mBaseScale = 10000.0/c;
     }
+    mBaseScale = mBaseScale/n;
     ShowLog("BaseScale:"+QString::number(mBaseScale));
     QTransform transform;
     transform.scale(mBaseScale*(1+ui->horizontalSlider_scale->value()/100.0), mBaseScale*(1+ui->horizontalSlider_scale->value()/100.0));
@@ -278,7 +282,7 @@ void FormCircle::DrawHLines()
     qreal y = ui->spinBox_H_line_startY->value();
 
     int h = qAbs(ui->spinBox_CenterY->value()-y);
-    qreal dx = qSqrt(ui->spinBox_radius->value()*ui->spinBox_radius->value()-h*h);
+    qreal dx = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
     qreal sx = ui->spinBox_CenterX->value() - dx;
     qreal ex = 0;
     int index = 0;
@@ -299,7 +303,7 @@ void FormCircle::DrawHLines()
 
         y += ui->spinBox_height->value();
         h = qAbs(ui->spinBox_CenterY->value()-y);
-        dx = qSqrt(ui->spinBox_radius->value()*ui->spinBox_radius->value()-h*h);
+        dx = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
         if(ex>ui->spinBox_CenterX->value()){
             sx = ui->spinBox_CenterX->value() + dx;
         }else{
@@ -321,14 +325,16 @@ QGraphicsLineItem *FormCircle::DrawHLine()
     }
 
     int h = qAbs(ui->spinBox_CenterY->value()-mHLineStartY);
-    qreal dx = qSqrt(ui->spinBox_radius->value()*ui->spinBox_radius->value()-h*h);
+    qreal dx = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
 
-    if(mHLineIndex == 0){//第一条线
+    qreal ex;
+    if(mHLineStartX < ui->spinBox_CenterX->value()){
         mHLineStartX = ui->spinBox_CenterX->value() - dx;
+        ex = ui->spinBox_CenterX->value() + dx;
     }else{
-        dx = ui->spinBox_CenterX->value() - mHLineStartX;
+        mHLineStartX = ui->spinBox_CenterX->value() + dx;
+        ex = ui->spinBox_CenterX->value() - dx;
     }
-    qreal ex = ui->spinBox_CenterX->value() + dx;
 
     if(Qt::red == mHLineColor){
         mHLineColor = Qt::darkGreen;
@@ -344,13 +350,7 @@ QGraphicsLineItem *FormCircle::DrawHLine()
             .arg(ex).arg(mHLineStartY));
 
     mHLineStartY += ui->spinBox_height->value();
-    h = qAbs(ui->spinBox_CenterY->value()-mHLineStartY);
-    dx = qSqrt(ui->spinBox_radius->value()*ui->spinBox_radius->value()-h*h);
-    if(ex>ui->spinBox_CenterX->value()){
-        mHLineStartX = ui->spinBox_CenterX->value() + dx;
-    }else{
-        mHLineStartX = ui->spinBox_CenterX->value() - dx;
-    }
+    mHLineStartX = ex;
 
     return item;
 }
@@ -360,7 +360,7 @@ void FormCircle::DrawVLines()
     qreal x = ui->spinBox_V_line_startX->value();
 
     int h = qAbs(ui->spinBox_CenterX->value()-x);
-    qreal dy = qSqrt(ui->spinBox_radius->value()*ui->spinBox_radius->value()-h*h);
+    qreal dy = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
     qreal sy = ui->spinBox_CenterY->value() - dy;
     qreal ey = 0;
     int index = 0;
@@ -381,7 +381,7 @@ void FormCircle::DrawVLines()
 
         x += ui->spinBox_width->value();
         h = qAbs(ui->spinBox_CenterX->value()-x);
-        dy = qSqrt(ui->spinBox_radius->value()*ui->spinBox_radius->value()-h*h);
+        dy = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
         if(ey>ui->spinBox_CenterY->value()){
             sy = ui->spinBox_CenterY->value() + dy;
         }else{
@@ -403,14 +403,16 @@ QGraphicsLineItem *FormCircle::DrawVLine()
     }
 
     int h = qAbs(ui->spinBox_CenterX->value()-mVLineStartX);
-    qreal dy = qSqrt(ui->spinBox_radius->value()*ui->spinBox_radius->value()-h*h);
+    qreal dy = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
 
-    if(mVLineIndex == 0){//第一条线
+    qreal ey;
+    if(mVLineStartY < ui->spinBox_CenterY->value()){
         mVLineStartY = ui->spinBox_CenterY->value() - dy;
+        ey = ui->spinBox_CenterY->value() + dy;
     }else{
-        dy = ui->spinBox_CenterY->value() - mVLineStartY;
+        mVLineStartY = ui->spinBox_CenterY->value() + dy;
+        ey = ui->spinBox_CenterY->value() - dy;
     }
-    qreal ey = ui->spinBox_CenterY->value() + dy;
 
     if(Qt::red == mVLineColor){
         mVLineColor = Qt::darkGreen;
@@ -426,13 +428,7 @@ QGraphicsLineItem *FormCircle::DrawVLine()
             .arg(mVLineStartX).arg(ey));
 
     mVLineStartX += ui->spinBox_width->value();
-    h = qAbs(ui->spinBox_CenterX->value()-mVLineStartX);
-    dy = qSqrt(ui->spinBox_radius->value()*ui->spinBox_radius->value()-h*h);
-    if(ey>ui->spinBox_CenterY->value()){
-        mVLineStartY = ui->spinBox_CenterY->value() + dy;
-    }else{
-        mVLineStartY = ui->spinBox_CenterY->value() - dy;
-    }
+    mVLineStartY = ey;
 
     return item;
 }
@@ -474,6 +470,10 @@ void FormCircle::SaveSetting()
     setting.setIniCodec("UTF-8");
     setting.beginGroup(this->objectName());
     setting.setValue(ui->horizontalSlider_scale->objectName(), ui->horizontalSlider_scale->value());
+    QList<QSpinBox *>lsb = ui->groupBox_param->findChildren<QSpinBox *>(QString(), Qt::FindDirectChildrenOnly);
+    foreach (QSpinBox *sb, lsb) {
+        setting.setValue(sb->objectName(), sb->value());
+    }
     setting.endGroup();
 }
 
@@ -484,6 +484,11 @@ void FormCircle::LoadSetting()
     setting.beginGroup(this->objectName());
     ui->horizontalSlider_scale->setValue(setting.value(ui->horizontalSlider_scale->objectName(), 0).toInt());
     ui->spinBox_scale->setValue(ui->horizontalSlider_scale->value());
+
+    QList<QSpinBox *>lsb = ui->groupBox_param->findChildren<QSpinBox *>();
+    foreach (QSpinBox *sb, lsb) {
+        sb->setValue(setting.value(sb->objectName(), sb->value()).toInt());
+    }
     setting.endGroup();
 }
 

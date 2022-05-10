@@ -24,13 +24,29 @@
 	background-color: rgb(174, 179, 188);
 }
 
-.QFrame{background-color: rgb(249, 249, 249);
-border: 1px solid #555;
-border-radius: 4px;
+.QFrame{
+	background-color: rgb(249, 249, 249);
+	border: 1px solid #555;
+	border-radius: 4px;
 }
 
 QSpinBox{
 	min-height:35
+}
+
+QPushButton {
+	padding:10;
+	border: 2px solid #8f8f91;
+	border-radius: 4px;
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+QPushButton:hover{
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde,stop: 1 #aeb3bc);
+}
+QPushButton:pressed {
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #dadbde, stop: 1 #f6f7fa);
 }</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
@@ -76,7 +92,7 @@ QSpinBox{
             <number>9999999</number>
            </property>
            <property name="value">
-            <number>10</number>
+            <number>80000</number>
            </property>
           </widget>
          </item>
@@ -93,7 +109,7 @@ QSpinBox{
             <number>9999999</number>
            </property>
            <property name="value">
-            <number>15</number>
+            <number>4000</number>
            </property>
           </widget>
          </item>
@@ -110,7 +126,7 @@ QSpinBox{
             <number>9999999</number>
            </property>
            <property name="value">
-            <number>10</number>
+            <number>30000</number>
            </property>
           </widget>
          </item>
@@ -141,7 +157,7 @@ QSpinBox{
             <number>9999999</number>
            </property>
            <property name="value">
-            <number>100</number>
+            <number>70000</number>
            </property>
           </widget>
          </item>
@@ -151,7 +167,7 @@ QSpinBox{
             <number>9999999</number>
            </property>
            <property name="value">
-            <number>100</number>
+            <number>120000</number>
            </property>
           </widget>
          </item>
@@ -168,7 +184,7 @@ QSpinBox{
             <number>9999999</number>
            </property>
            <property name="value">
-            <number>100</number>
+            <number>50000</number>
            </property>
           </widget>
          </item>
@@ -185,7 +201,7 @@ QSpinBox{
             <number>9999999</number>
            </property>
            <property name="value">
-            <number>15</number>
+            <number>5000</number>
            </property>
           </widget>
          </item>
