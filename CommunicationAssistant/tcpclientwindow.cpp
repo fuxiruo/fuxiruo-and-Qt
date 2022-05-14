@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include "commonfunc.h"
+#include <QNetworkProxy>
 
 TcpClientWindow::TcpClientWindow(QWidget *parent) :
     QWidget(parent),
@@ -127,6 +128,7 @@ void TcpClientWindow::Init()
 {
     LoadSetting();
 
+    mTcpSocket.setProxy(QNetworkProxy::NoProxy);
     connect(&mTcpSocket, SIGNAL(connected()), this, SLOT(OnConnected()));
     connect(&mTcpSocket, SIGNAL(disconnected()), this, SLOT(OnDisconnected()));
     connect(&mTcpSocket, SIGNAL(readyRead()), this, SLOT(OnReadyRead()));
