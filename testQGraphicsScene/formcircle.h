@@ -35,6 +35,8 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
+    void OnInitAfterUI();
+
     void on_pushButton_updateShow_clicked();
 
     void on_pushButton_next_HLine_clicked();
@@ -51,14 +53,24 @@ private slots:
 
 private:
     Ui::FormCircle *ui;
+    QString msObjectName;
     bool mbIsEmptyCircle;
     qreal mBaseScale;
+
+    qint32 mnTopEdgePos;
+    qint32 mnBottomEdgePos;
+    qint32 mnLeftEdgePos;
+    qint32 mnRightEdgePos;
 
     void SaveSetting();
     void LoadSetting();
 
     void ReInitValue();
     void ShowLog(const QString &sLog);
+
+    void ReCalcEdge();
+    void VLineAdjustByEdge(qreal &sy, qreal &ey);
+    void HLineAdjustByEdge(qreal &sx, qreal &ex);
 
     QGraphicsScene *mGraphicsScene;
     QMap<QGraphicsItem *, QGraphicsItem *> mMapXYNotes;

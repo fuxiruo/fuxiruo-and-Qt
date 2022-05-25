@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>740</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -86,20 +86,44 @@ QPushButton:pressed {
          <bool>true</bool>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="7" column="1">
-          <widget class="QSpinBox" name="spinBox_V_line_startX">
+         <item row="9" column="0" colspan="2">
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="0">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>左边距</string>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1">
+          <widget class="QSpinBox" name="spinBox_left_margin">
            <property name="maximum">
             <number>9999999</number>
            </property>
            <property name="value">
-            <number>80000</number>
+            <number>0</number>
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="label_6">
+         <item row="11" column="0">
+          <widget class="QLabel" name="label_10">
            <property name="text">
-            <string>高度</string>
+            <string>下边距</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="1">
+          <widget class="QSpinBox" name="spinBox_bottom_margin">
+           <property name="maximum">
+            <number>9999999</number>
+           </property>
+           <property name="value">
+            <number>0</number>
            </property>
           </widget>
          </item>
@@ -113,10 +137,27 @@ QPushButton:pressed {
            </property>
           </widget>
          </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>高度</string>
+           </property>
+          </widget>
+         </item>
          <item row="7" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
             <string>竖划线X起点</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QSpinBox" name="spinBox_V_line_startX">
+           <property name="maximum">
+            <number>9999999</number>
+           </property>
+           <property name="value">
+            <number>80000</number>
            </property>
           </widget>
          </item>
@@ -130,13 +171,6 @@ QPushButton:pressed {
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>横划线Y起点</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
@@ -144,10 +178,27 @@ QPushButton:pressed {
            </property>
           </widget>
          </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>横划线Y起点</string>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
             <string>圆心坐标Y</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="spinBox_CenterX">
+           <property name="maximum">
+            <number>9999999</number>
+           </property>
+           <property name="value">
+            <number>0</number>
            </property>
           </widget>
          </item>
@@ -161,20 +212,10 @@ QPushButton:pressed {
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox_CenterX">
-           <property name="maximum">
-            <number>9999999</number>
-           </property>
-           <property name="value">
-            <number>120000</number>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
+         <item row="8" column="0">
+          <widget class="QLabel" name="label_7">
            <property name="text">
-            <string>圆半径R</string>
+            <string>宽度</string>
            </property>
           </widget>
          </item>
@@ -188,10 +229,10 @@ QPushButton:pressed {
            </property>
           </widget>
          </item>
-         <item row="8" column="0">
-          <widget class="QLabel" name="label_7">
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>宽度</string>
+            <string>圆半径R</string>
            </property>
           </widget>
          </item>
@@ -202,6 +243,40 @@ QPushButton:pressed {
            </property>
            <property name="value">
             <number>5000</number>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="1">
+          <widget class="QSpinBox" name="spinBox_top_margin">
+           <property name="maximum">
+            <number>9999999</number>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>上边距</string>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="0">
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>右边距</string>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="1">
+          <widget class="QSpinBox" name="spinBox_right_margin">
+           <property name="maximum">
+            <number>9999999</number>
+           </property>
+           <property name="value">
+            <number>0</number>
            </property>
           </widget>
          </item>

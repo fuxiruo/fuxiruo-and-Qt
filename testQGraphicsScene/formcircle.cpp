@@ -8,6 +8,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDateTime>
 #include <QSettings>
+#include <QTimer>
 
 FormCircle::FormCircle(QWidget *parent) :
     QWidget(parent),
@@ -17,7 +18,8 @@ FormCircle::FormCircle(QWidget *parent) :
     setAttribute(Qt::WA_QuitOnClose,false);
 
     ReInitValue();
-    LoadSetting();
+    //LoadSetting();//这个函数用到了this->objectName(),但如果是通过提升方式放在界面的，它的objectName会在这个初始化函数执行完毕之后才被设置
+    QTimer::singleShot(0, this, SLOT(OnInitAfterUI()));
 
     mGraphicsScene = new QGraphicsScene;
     mGraphicsScene->installEventFilter(this);
@@ -222,6 +224,11 @@ bool FormCircle::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
+void FormCircle::OnInitAfterUI()
+{
+    LoadSetting();
+}
+
 void FormCircle::on_pushButton_updateShow_clicked()
 {
     Reset();
@@ -270,6 +277,7 @@ void FormCircle::on_pushButton_updateShow_clicked()
     on_pushButton_center_clicked();
 //    DrawHLines();
 //    DrawVLines();
+    ReCalcEdge();
 }
 
 QGraphicsEllipseItem *FormCircle::addCircle(qreal x, qreal y, qreal r, const QPen &pen, const QBrush &brush)
@@ -294,6 +302,7 @@ void FormCircle::DrawHLines()
         qreal dx = ui->spinBox_CenterX->value() - sx;
         ex = ui->spinBox_CenterX->value() + dx;
 
+        HLineAdjustByEdge(sx, ex);
         mGraphicsScene->addLine(sx, y, ex, y, mHLinePen);
         index++;
         ShowLog(QString("第%1横线:(%2,%3)->(%4,%5)")
@@ -342,6 +351,7 @@ QGraphicsLineItem *FormCircle::DrawHLine()
         mHLineColor = Qt::red;
     }
     mHLinePen.setColor(mHLineColor);
+    HLineAdjustByEdge(mHLineStartX, ex);
     item = mGraphicsScene->addLine(mHLineStartX, mHLineStartY, ex, mHLineStartY, mHLinePen);
     mHLineIndex++;
     ShowLog(QString("第%1横线:(%2,%3)->(%4,%5)")
@@ -372,6 +382,7 @@ void FormCircle::DrawVLines()
         qreal dy = ui->spinBox_CenterY->value() - sy;
         ey = ui->spinBox_CenterY->value() + dy;
 
+        VLineAdjustByEdge(sy, ey);
         mGraphicsScene->addLine(x, sy, x, ey, mVLinePen);
         index++;
         ShowLog(QString("第%1竖线:(%2,%3)->(%4,%5)")
@@ -420,6 +431,7 @@ QGraphicsLineItem *FormCircle::DrawVLine()
         mVLineColor = Qt::red;
     }
     mVLinePen.setColor(mVLineColor);
+    VLineAdjustByEdge(mVLineStartY, ey);
     item = mGraphicsScene->addLine(mVLineStartX, mVLineStartY, mVLineStartX, ey, mVLinePen);
     mVLineIndex++;
     ShowLog(QString("第%1竖线:(%2,%3)->(%4,%5)")
@@ -497,6 +509,88 @@ void FormCircle::ShowLog(const QString &sLog)
     ui->textEdit->append(QString("[%1]%2")
                             .arg(QDateTime::currentDateTime().toString("yyyy/MM/dd HH:mm:ss.zzz"))
                             .arg(sLog));
+}
+
+void FormCircle::ReCalcEdge()
+{
+    mnTopEdgePos = ui->spinBox_CenterY->value() + ui->spinBox_radius->value() - ui->spinBox_top_margin->value();
+    mnBottomEdgePos = ui->spinBox_CenterY->value() - ui->spinBox_radius->value() + ui->spinBox_bottom_margin->value();
+    mnLeftEdgePos = ui->spinBox_CenterX->value() - ui->spinBox_radius->value() + ui->spinBox_left_margin->value();
+    mnRightEdgePos = ui->spinBox_CenterX->value() + ui->spinBox_radius->value() - ui->spinBox_right_margin->value();
+
+    QPen p;
+    p.setWidth(10/mBaseScale);
+    p.setStyle(Qt::DashLine);
+    p.setColor(Qt::red);
+    if(ui->spinBox_top_margin->value() > 0){
+        int h = qAbs(ui->spinBox_CenterY->value()-mnTopEdgePos);
+        qreal dx = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
+        qreal sx = ui->spinBox_CenterX->value() - dx;
+        qreal ex = ui->spinBox_CenterX->value() + dx;
+        mGraphicsScene->addLine(sx, mnTopEdgePos, ex, mnTopEdgePos, p);
+    }
+
+    if(ui->spinBox_bottom_margin->value() > 0){
+        int h = qAbs(ui->spinBox_CenterY->value()-mnBottomEdgePos);
+        qreal dx = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
+        qreal sx = ui->spinBox_CenterX->value() - dx;
+        qreal ex = ui->spinBox_CenterX->value() + dx;
+        mGraphicsScene->addLine(sx, mnBottomEdgePos, ex, mnBottomEdgePos, p);
+    }
+
+    if(ui->spinBox_left_margin->value() > 0){
+        int h = qAbs(ui->spinBox_CenterX->value()-mnLeftEdgePos);
+        qreal dy = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
+        qreal sy = ui->spinBox_CenterY->value() - dy;
+        qreal ey = ui->spinBox_CenterY->value() + dy;
+        mGraphicsScene->addLine(mnLeftEdgePos, sy, mnLeftEdgePos, ey, p);
+    }
+
+    if(ui->spinBox_right_margin->value() > 0){
+        int h = qAbs(ui->spinBox_CenterX->value()-mnRightEdgePos);
+        qreal dy = qSqrt((qreal)ui->spinBox_radius->value()*ui->spinBox_radius->value()-(qreal)h*h);
+        qreal sy = ui->spinBox_CenterY->value() - dy;
+        qreal ey = ui->spinBox_CenterY->value() + dy;
+        mGraphicsScene->addLine(mnRightEdgePos, sy, mnRightEdgePos, ey, p);
+    }
+}
+
+void FormCircle::VLineAdjustByEdge(qreal &sy, qreal &ey)
+{
+    if(sy < ey){
+        if(sy < mnBottomEdgePos){
+            sy = mnBottomEdgePos;
+        }
+        if(ey > mnTopEdgePos){
+            ey = mnTopEdgePos;
+        }
+    }else{
+        if(sy > mnTopEdgePos){
+            sy = mnTopEdgePos;
+        }
+        if(ey < mnBottomEdgePos){
+            ey = mnBottomEdgePos;
+        }
+    }
+}
+
+void FormCircle::HLineAdjustByEdge(qreal &sx, qreal &ex)
+{
+    if(sx < ex){
+        if(sx < mnLeftEdgePos){
+            sx = mnLeftEdgePos;
+        }
+        if(ex > mnRightEdgePos){
+            ex = mnRightEdgePos;
+        }
+    }else{
+        if(sx > mnRightEdgePos){
+            sx = mnRightEdgePos;
+        }
+        if(ex < mnLeftEdgePos){
+            ex = mnLeftEdgePos;
+        }
+    }
 }
 
 void FormCircle::DrawXYAxis(qreal w, qreal h)
