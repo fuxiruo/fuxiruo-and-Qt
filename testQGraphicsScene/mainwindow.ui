@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="FormCircle" name="widget" native="true"/>
+     <widget class="FormRotate" name="widget" native="true"/>
     </item>
    </layout>
   </widget>
@@ -43,9 +43,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>FormCircle</class>
+   <class>FormRotate</class>
    <extends>QWidget</extends>
-   <header>formcircle.h</header>
+   <header>formrotate.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

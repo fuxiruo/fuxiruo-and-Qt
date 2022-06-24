@@ -60,14 +60,12 @@ bool FormCircle::CheckIfSameCircle(qint32 centerX, qint32 centerY, qint32 radius
         qWarning()<<"startY != mHLineStartY"<<startY<<mHLineStartY;
         ui->spinBox_H_line_startY->setValue(startY);
         mHLineStartY = startY;
-        mHLineStartX = startX;
         //return false;
     }
     if(!bHLine && startX != mVLineStartX){
         qWarning()<<"startX != mVLineStartX"<<startX<<mVLineStartX;
         ui->spinBox_V_line_startX->setValue(startX);
         mVLineStartX = startX;
-        mVLineStartY = startY;
         //return false;
     }
     if(singleHeight != ui->spinBox_height->value()){

@@ -27,15 +27,18 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    formcircle.cpp
+    formcircle.cpp \
+    formrotate.cpp
 
 HEADERS += \
         mainwindow.h \
-    formcircle.h
+    formcircle.h \
+    formrotate.h
 
 FORMS += \
         mainwindow.ui \
-    formcircle.ui
+    formcircle.ui \
+    formrotate.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
