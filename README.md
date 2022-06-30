@@ -23,6 +23,8 @@ Qt小知识小技巧分享
 | 17 | qmlPuzzle | qml拼图游戏 |
 | 18 | testQtPropertyBrowser | QtPropertyBrowser使用 |
 | 19 | testQGraphicsScene | QGraphicsScene使用 |
+| 20 | QPngWarningRemover | Qt PNG图片警告消除，QThreadPool多线程 |
+
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
@@ -52,3 +54,5 @@ Qt小知识小技巧分享
 ![qmlPuzzle](snap/qmlPuzzle.gif "拼图游戏")
 
 ![testQtPropertyBrowser](snap/testQtPropertyBrowser.gif "QtPropertyBrowser使用")
+
+![QPngWarningRemover](snap/QPngWarningRemover.gif "Qt PNG图片警告消除")
