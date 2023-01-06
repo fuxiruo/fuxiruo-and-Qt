@@ -24,7 +24,7 @@ Qt小知识小技巧分享
 | 18 | testQtPropertyBrowser | QtPropertyBrowser使用 |
 | 19 | testQGraphicsScene | QGraphicsScene使用 |
 | 20 | QPngWarningRemover | Qt PNG图片警告消除，QThreadPool多线程 |
-
+| 21 | TinyHttpClient | QNetworkAccessManager简易http客户端 |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
