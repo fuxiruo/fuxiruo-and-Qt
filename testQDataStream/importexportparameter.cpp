@@ -58,6 +58,7 @@ bool ImportExportParameter::Export(const QString &sFile, const QVector<Parameter
 
     file.seek(file.size());
     QDataStream out2(&file);
+    out2.setVersion(QDataStream_Version);
     qDebug()<<out2.atEnd();
     out2 << hash.result().toHex();
     file.close();
@@ -74,6 +75,7 @@ ImportExportParameter::ErrCode ImportExportParameter::Import(const QString &sFil
         return ErrCode::Unknown;
     }
     QDataStream in(&file);
+    in.setVersion(QDataStream_Version);
 
     // Read and check the header
     quint32 head;
