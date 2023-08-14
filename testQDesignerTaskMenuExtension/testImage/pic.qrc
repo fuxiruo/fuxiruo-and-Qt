@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>release/pic/happy.png</file>
+        <file>../../icon/down.png</file>
+        <file>release/222.png</file>
+    </qresource>
+    <qresource prefix="/tt" lang="ts"/>
+</RCC>

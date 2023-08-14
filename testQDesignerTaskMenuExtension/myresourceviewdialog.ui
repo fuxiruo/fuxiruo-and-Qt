@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MyResourceViewDialog</class>
+ <widget class="QDialog" name="MyResourceViewDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>749</width>
+    <height>235</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Select Resource</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QTreeWidget" name="treeWidget">
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string notr="true">1</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QListWidget" name="listWidget">
+      <property name="iconSize">
+       <size>
+        <width>48</width>
+        <height>48</height>
+       </size>
+      </property>
+      <property name="gridSize">
+       <size>
+        <width>64</width>
+        <height>64</height>
+       </size>
+      </property>
+      <property name="viewMode">
+       <enum>QListView::IconMode</enum>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

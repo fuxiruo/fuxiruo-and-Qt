@@ -25,6 +25,7 @@ Qt小知识小技巧分享
 | 19 | testQGraphicsScene | QGraphicsScene使用 |
 | 20 | QPngWarningRemover | Qt PNG图片警告消除，QThreadPool多线程 |
 | 21 | TinyHttpClient | QNetworkAccessManager简易http客户端 |
+| 22 | testQDesignerTaskMenuExtension | 集成自定义控件到Qt Designer时QDesignerTaskMenuExtension的使用(参考Qt例程Task Menu Extension Example) |
 
 ### 效果图
 ![SimpleAnalogClock](snap/SimpleAnalogClock.gif "简易时钟")
